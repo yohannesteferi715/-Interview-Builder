@@ -88,4 +88,4 @@ dist/
 # =========================
 *.tmp
 *.temp
-*.bak
+*.bakmyvenv/
