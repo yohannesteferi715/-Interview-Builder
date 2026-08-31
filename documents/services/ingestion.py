@@ -21,7 +21,8 @@ def ingest_document(document):
 
         # 1. Extract PDF text
         pages = extract_pdf_pages(
-            document.file.path
+            document.file.path,
+            document.id
         )
 
         if not pages:
