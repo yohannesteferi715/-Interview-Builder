@@ -1,10 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
-from documents.models import Document
-
 
 class Interview(models.Model):
 
@@ -21,15 +16,13 @@ class Interview(models.Model):
         ("mixed", "Mixed"),
     ]
 
-    title = models.CharField(max_length=255)
-
-    document = models.ForeignKey(
-        Document,
-        on_delete=models.CASCADE,
-        related_name="interviews",
+    title = models.CharField(
+        max_length=255
     )
 
-    topic = models.CharField(max_length=255)
+    topic = models.CharField(
+        max_length=255
+    )
 
     difficulty = models.CharField(
         max_length=20,
@@ -62,9 +55,7 @@ class Question(models.Model):
 
     question = models.TextField()
 
-    answer = models.TextField(
-        blank=True
-    )
+    answer = models.TextField()
 
     explanation = models.TextField(
         blank=True
@@ -81,3 +72,31 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question[:100]
+
+
+class QuestionSource(models.Model):
+
+    question = models.ForeignKey(
+        Question,
+        on_delete=models.CASCADE,
+        related_name="sources",
+    )
+
+    document_id = models.IntegerField()
+
+    filename = models.CharField(
+        max_length=255
+    )
+
+    page = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    chunk_index = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return f"{self.filename} - page {self.page}"
