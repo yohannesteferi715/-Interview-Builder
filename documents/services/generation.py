@@ -67,3 +67,41 @@ Content:
 
     return "\n".join(context_parts)
 
+
+
+def get_source_metadata(points):
+
+    sources = []
+
+    for point in points:
+
+        payload = point.payload or {}
+
+        if not payload.get("text"):
+            continue
+
+        sources.append(
+            {
+                "document_id": payload.get(
+                    "document_id"
+                ),
+
+                "filename": payload.get(
+                    "filename",
+                    "Unknown document",
+                ),
+
+                "page": payload.get(
+                    "page"
+                ),
+
+                "chunk_index": payload.get(
+                    "chunk_index"
+                ),
+            }
+        )
+
+    return sources
+
+
+
